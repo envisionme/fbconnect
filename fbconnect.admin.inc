@@ -192,12 +192,13 @@ function fbconnect_appearance_settings(&$form_state) {
     '#default_value' => variable_get('fbconnect_pic_logo', TRUE),
   );
 
-  $form['excludes'] = array(
+  $form['additional'] = array(
     '#type' => 'fieldset',
+    '#title' => t('Additional'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  $form['excludes']['fbconnect_exclude_patterns'] = array(
+  $form['additional']['fbconnect_exclude_patterns'] = array(
     '#type' => 'textarea',
     '#title' => t('Disable FBConnect on specified pages'),
     '#description' => t('Enter here path patterns accepted by !drupal_match_path function. One per line.', array(
