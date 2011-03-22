@@ -159,7 +159,7 @@ function fbconnect_update_6005() {
 function fbconnect_update_6200() {
   $res = array();
   $res[] = update_sql("UPDATE {variable} SET name = 'fbconnect_appid' WHERE name = 'fbconnect_key'");
-  $res[] = update_sql('UPDATE {blocks} SET module = "fbconnect_invite" WHERE module = "fbconnect" AND delta = 0');
+  $res[] = update_sql("UPDATE {blocks} SET module = 'fbconnect_invite' WHERE module = 'fbconnect' AND delta = 0");
   
   return $res;
 }
@@ -177,8 +177,9 @@ function fbconnect_schema_alter(&$schema) {
  * Extend maximum email length to 320 chars
  */
 function _fbconnect_change_user_mail_field($action = 'install') {
+  $ret = array();
   $schema = array('users' => drupal_get_schema('users'));
   if ($action == 'install') fbconnect_schema_alter($schema);
-  db_change_field($res, 'users', 'mail', 'mail', $schema['users']['fields']['mail']);
-  return $res;
+  db_change_field($ret, 'users', 'mail', 'mail', $schema['users']['fields']['mail']);
+  return $ret;
 }
