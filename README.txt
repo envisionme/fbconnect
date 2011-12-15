@@ -25,7 +25,7 @@ Also this tab allows to unlink your Facebook account.
 -- REQUIREMENTS --
 PHP 5.2 or higher versions. 
 Drupal 6.x. 
-Facebook PHP Library: http://github.com/facebook/php-sdk/
+Facebook PHP 3.x Library or higher: http://github.com/facebook/php-sdk/ (OAuth 2.0 Support Now)
 Facebook API key: http://www.facebook.com/developers/
 
 

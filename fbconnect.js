@@ -10,7 +10,7 @@ Drupal.fbconnect.init = function () {
   }
   
   if (Drupal.settings.fbconnect.loginout_mode == 'auto') {
-    FB.Event.subscribe('auth.sessionChange', Drupal.fbconnect.reload_ifUserConnected);
+    FB.Event.subscribe('auth.authResponseChange', Drupal.fbconnect.reload_ifUserConnected);
 //    FB.Event.subscribe('auth.login', function(response) {
 //      console.log('event auth.login');
 //    });
@@ -35,8 +35,8 @@ Drupal.fbconnect.logout = function(keep_fbaccount_logged) {
 Drupal.fbconnect.reload_ifUserConnected = function(state) {
   var user = Drupal.settings.fbconnect.user;
   
-  if (!state.session || user.uid) return;
-  if (state.session.uid != user.fbuid) {
+  if (!state.authResponse || user.uid) return;
+  if (state.authResponse.uid != user.fbuid) {
     window.location.reload();
   }
 };
@@ -50,8 +50,8 @@ Drupal.fbconnect.initLogoutLinks = function(context) {
   
   if (loginout_mode == 'manual') return;
   
-  links.addClass('logout_link_inited').click(function() {
-    var fbuid = FB.getSession() && FB.getSession().uid;
+  links.addClass('logout_link_inited').bind('click',function() {
+    var fbuid = FB.getAuthResponse() && FB.getAuthResponse().uid;
     if (!user.fbuid || user.fbuid != fbuid) return;
     if (loginout_mode == 'auto') { 
       Drupal.fbconnect.logout();
@@ -88,16 +88,20 @@ Drupal.fbconnect.initLogoutLinks = function(context) {
 
 Drupal.fbconnect.DoFastRegistration =  function(link) {
   FB.login(function(response) {
-    if (response.session && /email/.test(response.perms)) {
+    if (response.authResponse && response.status == 'connected') {
+      FB.api('/me/permissions', function(perms_response) {
+        if(perms_response['data'][0]['email']) {
       window.location.href = link.href;
     }
-  }, {perms:'email'});
+      });
+    }
+  }, {scope:'email'});
 };
 
 
 function facebook_onlogin_ready() {
   // http://github.com/facebook/connect-js/issues/194
-  if (!FB.getSession()) {
+  if (!FB.getAuthResponse()) {
     return;
   }
   $("#fbconnect-autoconnect-form").submit();
