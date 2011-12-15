@@ -1,6 +1,4 @@
-// $Id$
-
-Drupal.fbconnect = Drupal.fbconnect || {}; 
+Drupal.fbconnect = Drupal.fbconnect || {};
 Drupal.fbconnect.stream_publish = function() {
   Drupal.behaviors.fbconnect_stream_publish = Drupal.fbconnect.stream_publish;
   if (Drupal.settings['FB.streamPublish']) {

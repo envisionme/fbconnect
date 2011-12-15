@@ -1,16 +1,15 @@
 <?php
-// $Id$
 
 /**
- * @file rules integration for the fbconnect_invite module
+ * @file
+ * Rules integration for the fbconnect_invite module.
  *
  * @addtogroup rules
  * @{
  */
 
-
 /**
- * Implementation of hook_rules_event_info().
+ * Implements hook_rules_event_info().
  */
 function fbconnect_invite_rules_event_info() {
   return array(
