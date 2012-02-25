@@ -123,7 +123,7 @@ function fbconnect_register_page($form_state = array()) {
  * @todo.
  */
 function _fbconnect_get_username($name_suggestion) {
-  $query = "SELECT COUNT(name) FROM users WHERE name = '%s'";
+  $query = "SELECT COUNT(name) FROM {users} WHERE name = '%s'";
   $result = db_result(db_query($query, $name_suggestion));
   if ($result['name'] != 0) {
     $counter = variable_get('fbconnect_namecounter', 1);
