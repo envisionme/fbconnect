@@ -189,11 +189,15 @@ function fbconnect_form_alter(&$form, $form_state, $form_id) {
         drupal_set_message(t('Please log in, in order to link your account with Facebook Connect'));
         $form['#submit'][] = 'fbconnect_redirect_submit';
       }
-      // Pass-through.
-      break;
+      // Don't break here since we want to run the next user_login_block case
+      // too
 
     // Render fbconnect on login block.
     case 'user_login_block':
+      if (@$_REQUEST['destination'] == 'fbconnect/link') {
+        drupal_set_message(t('Please log in, in order to link your account with Facebook Connect'));
+        $form['#submit'][] = 'fbconnect_redirect_submit';
+      }
       if ((empty($_GET['destination']) || (!empty($_GET['destination']) && ($_GET['destination'] != 'fbconnect/link'))) && fbconnect_facebook_client()) {
 
         $attr = array('scope' => 'email');
