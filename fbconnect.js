@@ -44,7 +44,7 @@ Drupal.fbconnect.initLogoutLinks = function(context) {
   var user          = Drupal.settings.fbconnect.user;
   var basePath      = Drupal.settings.basePath;
   var logout_url    = basePath + 'logout';
-  var links         = $('a[href='+ logout_url +']', context).not('.logout_link_inited');
+  var links         = $('a[href="'+ logout_url +'"]', context).not('.logout_link_inited');
 
   if (loginout_mode == 'manual') return;
 
